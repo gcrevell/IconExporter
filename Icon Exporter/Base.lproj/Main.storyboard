@@ -683,7 +683,7 @@
                                     <constraint firstAttribute="height" constant="230" id="kJm-0x-ckJ"/>
                                 </constraints>
                                 <animations/>
-                                <imageCell key="cell" selectable="YES" editable="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="Drag Image Here" id="LuY-IQ-7wj"/>
+                                <imageCell key="cell" selectable="YES" editable="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="Drag Image Here" id="LuY-IQ-7wj"/>
                                 <connections>
                                     <action selector="imageDropped:" target="XfG-lQ-9wD" id="Igr-Zs-d3t"/>
                                 </connections>
@@ -852,6 +852,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Drag Image Here" width="440" height="230"/>
+        <image name="Drag Image Here" width="220" height="115"/>
     </resources>
 </document>

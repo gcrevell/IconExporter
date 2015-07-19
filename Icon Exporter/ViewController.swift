@@ -45,8 +45,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		collapsedHeight = fullHeight - 41
 		
 		exportAnimationsButton.hidden = true
-		
-		print(collapsedWidth, appendNewline: true)
 	}
 	
 	override var representedObject: AnyObject? {
