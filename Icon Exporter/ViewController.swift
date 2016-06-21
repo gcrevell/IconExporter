@@ -71,7 +71,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 				alert.addButtonWithTitle("Hail Voltage")
 				alert.addButtonWithTitle("I'll do better")
 				
-				alert.alertStyle = NSAlertStyle.CriticalAlertStyle
+				alert.alertStyle = NSAlertStyle.Critical
 				
 				alert.runModal()
 				
@@ -135,11 +135,11 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		
 		output.lockFocus()
 		
-		image.drawInRect(NSRect(x: 0, y: 0, width: outputWidth, height: outputHeight), fromRect: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height), operation: NSCompositingOperation.CompositeSourceOver, fraction: 1.0)
+		image.drawInRect(NSRect(x: 0, y: 0, width: outputWidth, height: outputHeight), fromRect: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height), operation: NSCompositingOperation.SourceOver, fraction: 1.0)
 		
 		output.unlockFocus()
 		
-		let i = NSBitmapImageRep(data: output.TIFFRepresentation!)?.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [String : AnyObject]())
+		let i = NSBitmapImageRep(data: output.TIFFRepresentation!)?.representationUsingType(NSBitmapImageFileType.PNG, properties: [String : AnyObject]())
 		
 		i?.writeToFile("\(path).png", atomically: true)
 	}
