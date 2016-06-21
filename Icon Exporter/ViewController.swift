@@ -15,8 +15,10 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	@IBOutlet weak var myView: NSView!
 	@IBOutlet weak var table: NSTableView!
 	@IBOutlet weak var exportAnimationsButton: NSButton!
+	@IBOutlet weak var nameTextField: NSTextField!
 	
 	var images = [NSImage]()
+	var cells = [MyImagesCell]()
 	
 	var fullWidth: CGFloat!
 	var collapsedWidth: CGFloat!
@@ -45,6 +47,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		collapsedHeight = fullHeight - 41
 		
 		exportAnimationsButton.hidden = true
+		nameTextField.hidden = true
 	}
 	
 	override var representedObject: AnyObject? {
@@ -57,7 +60,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		let droppedImage = imageDropper.image!
 		imageDropper.image = NSImage(named: "Drag Image Here")
 		
-		print("Dropped image is of size \(droppedImage.size)", appendNewline: true)
+		print("Dropped image is of size \(droppedImage.size)")
 		
 		if dropPicker.indexOfSelectedItem == 0 || dropPicker.indexOfSelectedItem == 1 {
 			if droppedImage.size.width != droppedImage.size.height {
@@ -91,6 +94,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 			return
 		}
 		
+		let imageName = nameTextField.stringValue
+		
 		if dropPicker.indexOfSelectedItem == 0 {
 			//iOS Icons
 			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
@@ -100,7 +105,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 			writeSquareImage(droppedImage, toSize: 180, inFolder: folder)
 		} else if dropPicker.indexOfSelectedItem == 2 {
 			//Image assets (1,2,3x)
-			saveSizedImage(droppedImage, toPath: folder, forNumber: nil)
+			saveSizedImage(droppedImage, toPath: folder, forNumber: nil, withName: imageName)
 		} else if dropPicker.indexOfSelectedItem == 1 {
 			//mac icons
 			writeSquareImage(droppedImage, toSize: 1024, inFolder: folder)
@@ -144,9 +149,20 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	}
 	
 	@IBAction func typeChanged(sender: AnyObject) {
-		print("Type changed", appendNewline: true)
+		print("Type changed")
 		
 		let window = NSApplication.sharedApplication().mainWindow!
+		
+		switch dropPicker.indexOfSelectedItem {
+		case 0:
+			nameTextField.hidden = true
+			
+		case 1:
+			nameTextField.hidden = true
+			
+		default:
+			print("Nothing needed")
+		}
 		
 		if dropPicker.indexOfSelectedItem == 3 {
 			var x = CGFloat(0)
@@ -178,10 +194,29 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 			
 			images = [NSImage]()
 		}
+		
+		switch dropPicker.indexOfSelectedItem {
+		case 0:
+			nameTextField.hidden = true
+			
+		case 1:
+			nameTextField.hidden = true
+			
+		case 2:
+			nameTextField.hidden = false
+			
+		case 3:
+			nameTextField.hidden = false
+			
+		default:
+			print("wat")
+		}
+		
+		nameTextField.stringValue = ""
 	}
 	
 	@IBAction func buttonPressed(sender: AnyObject) {
-		print(images.count, appendNewline: true)
+		print(images.count)
 		let ret = makeFolder()
 		let folder = ret.folder
 		let name = ret.name
@@ -191,7 +226,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		}
 		
 		for i in 0..<images.count {
-			saveSizedImage(images[i], toPath: folder, forNumber: i + 1)
+			saveSizedImage(images[i], toPath: folder, forNumber: i + 1, withName: nameTextField.stringValue)
 		}
 		
 		let not = NSUserNotification()
@@ -213,6 +248,13 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		}
 		cell.imageNumberLabel.stringValue = "Image \(row + 1)"
 		
+		cell.currentView = self
+		
+		if cells.contains(cell) {
+		} else {
+			cells.append(cell)
+		}
+		
 		return cell
 	}
 	
@@ -226,10 +268,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	
 	func tableView(tableView: NSTableView, didClickTableColumn tableColumn: NSTableColumn) {
 		tableView.deselectAll(self)
-	}
-	
-	func tableView(tableView: NSTableView, selectionIndexesForProposedSelection proposedSelectionIndexes: NSIndexSet) -> NSIndexSet {
-		return NSIndexSet()
 	}
 	
 	func makeFolder() -> (folder: String, name: String) {
@@ -252,8 +290,12 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		return (folder, name)
 	}
 	
-	func saveSizedImage(image: NSImage, toPath folder: String, forNumber num: Int?) {
+	func saveSizedImage(image: NSImage, toPath folder: String, forNumber num: Int?, withName name: String?) {
 		var s = "Image"
+		
+		if let str = name {
+			s = str
+		}
 		
 		if let n = num {
 			s = "\(s)\(n)"
@@ -262,6 +304,23 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		writeImage(image, toSize: image.size, toPath: "\(folder)/\(s)@3x")
 		writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)")
 		writeImage(image, toSize: NSSize(width: image.size.width/3.0*2.0, height: image.size.height/3.0*2.0), toPath: "\(folder)/\(s)@2x")
+	}
+	
+	func removeCell(cell: MyImagesCell) {
+		var index = 0
+		
+		for i in 0..<cells.count {
+			if cells[i] == cell {
+				index = i
+				break
+			}
+		}
+		
+		images.removeAtIndex(index)
+		cells.removeAtIndex(index)
+		
+		self.table.removeRowsAtIndexes(NSIndexSet(index:index),
+			withAnimation: NSTableViewAnimationOptions.SlideRight)
 	}
 }
 

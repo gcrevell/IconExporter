@@ -13,7 +13,7 @@ class AnimationMainViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-		print("made it", appendNewline: true)
+		print("made it")
     }
     
 }
