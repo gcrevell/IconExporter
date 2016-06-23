@@ -114,7 +114,11 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 			return
 		}
 		
-		let imageName = nameTextField.stringValue
+        var imageName:String? = nil
+        
+        if nameTextField.stringValue != "" {
+            imageName = nameTextField.stringValue
+        }
 		
 		if format == .iphone {
 			// iPhone Icons
@@ -358,7 +362,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		}
 		
 		writeImage(image, toSize: image.size, toPath: "\(folder)/\(s)@3x")
-		writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)")
+		writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)@1x")
 		writeImage(image, toSize: NSSize(width: image.size.width/3.0*2.0, height: image.size.height/3.0*2.0), toPath: "\(folder)/\(s)@2x")
 	}
 	
