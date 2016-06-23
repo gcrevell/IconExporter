@@ -10,12 +10,14 @@ import Cocoa
 
 enum typePickerIndex:Int {
 	case iphone = 0
-	case mac = 1
-	case asset = 2
-	case animation = 3
+	case ipad
+	case universal
+	case mac
+	case asset
+	case animation
 	
 	func indexIsIcon() -> Bool {
-		if self.rawValue <= 1 {
+		if self.rawValue <= 3 {
 			return true
 		}
 		
@@ -48,7 +50,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		imageDropper.highlighted = false
 		
 		dropPicker.removeAllItems()
-		dropPicker.addItemsWithTitles(["iPhone App Icons", "Mac App Icons", "Image Assets (1, 2, 3x)", "Animations"])
+		dropPicker.addItemsWithTitles(["iPhone App Icons", "iPad App Icons", "Universal iOS App Icons", "Mac App Icons", "Image Assets (1, 2, 3x)", "Animations"])
 		
 		myView.wantsLayer = true
 		
@@ -115,17 +117,17 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		let imageName = nameTextField.stringValue
 		
 		if format == .iphone {
-			//iPhone Icons
+			// iPhone Icons
 			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 87, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 120, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 180, inFolder: folder)
 		} else if format == .asset {
-			//Image assets (1,2,3x)
+			// Image assets (1,2,3x)
 			saveSizedImage(droppedImage, toPath: folder, forNumber: nil, withName: imageName)
 		} else if format == .mac {
-			//Mac icons
+			// Mac icons
 			writeSquareImage(droppedImage, toSize: 1024, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 512, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 256, inFolder: folder)
@@ -133,6 +135,32 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 			writeSquareImage(droppedImage, toSize: 64, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 32, inFolder: folder)
 			writeSquareImage(droppedImage, toSize: 16, inFolder: folder)
+		} else if format == .ipad {
+			// iPad icons
+			writeSquareImage(droppedImage, toSize: 29, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 40, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 76, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 152, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 167, inFolder: folder)
+		} else if format == .universal {
+			// Universal icons (iPhone and iPad)
+			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
+			
+			// iPhone icons
+			writeSquareImage(droppedImage, toSize: 87, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 120, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 180, inFolder: folder)
+			
+			//iPad icons
+			writeSquareImage(droppedImage, toSize: 29, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 40, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 76, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 152, inFolder: folder)
+			writeSquareImage(droppedImage, toSize: 167, inFolder: folder)
+			
 		}
 		
 		let not = NSUserNotification()
