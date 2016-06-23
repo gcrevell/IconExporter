@@ -815,14 +815,14 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6dH-Ix-VUx">
+                            <popUpButton verticalHuggingPriority="750" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6dH-Ix-VUx">
                                 <rect key="frame" x="18" y="267" width="130" height="26"/>
-                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4rT-Yf-fp8">
+                                <popUpButtonCell key="cell" type="push" title="Icons" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" preferredEdge="maxX" selectedItem="EI9-vp-BJp" id="4rT-Yf-fp8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="6XM-Qi-DoE">
                                         <items>
-                                            <menuItem title="Icons" id="EI9-vp-BJp"/>
+                                            <menuItem title="Icons" state="on" id="EI9-vp-BJp"/>
                                             <menuItem title="Image (1, 2, 3x)" id="44x-Jn-h9w"/>
                                         </items>
                                     </menu>
