@@ -141,8 +141,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		}
 		
 		// Make the folder
-		let ret = makeFolder()
-		let folder = ret.folder
+		let ret = Helpers.makeFolder()
+		let folder = ret.path
 		let name = ret.name
 		
         // Folder function failed
@@ -160,48 +160,34 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         // Export the images based on the selected format
 		if format == .iphone {
 			// iPhone Icons
-			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 87, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 120, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 180, inFolder: folder)
+            Helpers.writeSquareImage(droppedImage,
+                                          toSizes: [58, 87, 80, 120, 180],
+                                          inFolder: folder)
 		} else if format == .asset {
 			// Image assets (1,2,3x)
-			saveSizedImage(droppedImage, toPath: folder, forNumber: nil, withName: imageName)
+			Helpers.saveImageAsset(            droppedImage,
+			                            toPath:     folder,
+			                            forNumber:  nil,
+			                            withName:   imageName)
 		} else if format == .mac {
 			// Mac icons
-			writeSquareImage(droppedImage, toSize: 1024, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 512, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 256, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 128, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 64, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 32, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 16, inFolder: folder)
+            Helpers.writeSquareImage(droppedImage,
+                                          toSizes: [16, 32, 64, 128, 256, 512, 1024],
+                                          inFolder: folder)
 		} else if format == .ipad {
 			// iPad icons
-			writeSquareImage(droppedImage, toSize: 29, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 40, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 76, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 152, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 167, inFolder: folder)
+            Helpers.writeSquareImage(droppedImage,
+                                          toSizes: [29, 58, 40, 80, 76, 152, 167],
+                                          inFolder: folder)
 		} else if format == .universal {
-			// Universal icons (iPhone and iPad)
-			writeSquareImage(droppedImage, toSize: 58, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 80, inFolder: folder)
-			
-			// iPhone icons
-			writeSquareImage(droppedImage, toSize: 87, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 120, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 180, inFolder: folder)
-			
-			//iPad icons
-			writeSquareImage(droppedImage, toSize: 29, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 40, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 76, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 152, inFolder: folder)
-			writeSquareImage(droppedImage, toSize: 167, inFolder: folder)
+			Helpers.writeSquareImage(droppedImage,
+                                          // Universal Icons
+                                          toSizes: [58, 80,
+                                            // iPhone only icons sizes
+                                            87, 120, 180,
+                                            // iPad only icon sizes
+                                            29, 40, 76, 152, 167],
+                                          inFolder: folder)
 		}
 		
         // Create and display a notification about the exort being completed
@@ -213,46 +199,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		not.deliveryDate = NSDate()
 		
 		NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(not)
-	}
-	
-    /**
-     Write an image, of a specific size, to the given path.
-     
-     This function takes a size and rescales the image to the size and exports
-     it to the given path.
-     
-     @param image The image to resize
-     @param size The CGSize value to change the image to
-     @param path The path to save the image to
-    */
-	func writeImage(image: NSImage, toSize size: CGSize, toPath path: String) {
-		let outputWidth = CGFloat(size.width)/(NSScreen.mainScreen()?.backingScaleFactor)!
-		let outputHeight = CGFloat(size.height)/(NSScreen.mainScreen()?.backingScaleFactor)!
-		
-		let output = NSImage(size: NSSize(width: outputWidth, height: outputHeight))
-		
-		output.lockFocus()
-		
-		image.drawInRect(NSRect(x: 0, y: 0, width: outputWidth, height: outputHeight), fromRect: NSRect(x: 0, y: 0, width: image.size.width, height: image.size.height), operation: NSCompositingOperation.CompositeSourceOver, fraction: 1.0)
-		
-		output.unlockFocus()
-		
-		let i = NSBitmapImageRep(data: output.TIFFRepresentation!)?.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [String : AnyObject]())
-		
-		i?.writeToFile("\(path).png", atomically: true)
-	}
-	
-    /**
-     Wrapper for writeImage. Writes an image to be square.
-     
-     This function writes a provided image into a square size at a given path.
-     
-     @param image The image to resize
-     @param size The int value to change the image width and height to
-     @param path The path to save the image to
-    */
-	func writeSquareImage(image: NSImage, toSize size: Int, inFolder path: String) {
-		writeImage(image, toSize: CGSize(width: size, height: size), toPath: "\(path)/Image size \(size)")
 	}
 	
 	@IBAction func typeChanged(sender: AnyObject) {
@@ -334,8 +280,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	
 	@IBAction func buttonPressed(sender: AnyObject) {
 		print(images.count)
-		let ret = makeFolder()
-		let folder = ret.folder
+		let ret = Helpers.makeFolder()
+		let folder = ret.path
 		let name = ret.name
 		
 		if folder.characters.count == 0 {
@@ -343,16 +289,10 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		}
 		
 		for i in 0..<images.count {
-			saveSizedImage(images[i], toPath: folder, forNumber: i + 1, withName: nameTextField.stringValue)
+			Helpers.saveImageAsset(images[i], toPath: folder, forNumber: i + 1, withName: nameTextField.stringValue)
 		}
 		
-		let not = NSUserNotification()
-		not.title = "Complete"
-		not.informativeText = "Your images are in  a folder called \(name) on the Desktop"
-		
-		not.deliveryDate = NSDate()
-		
-		NSUserNotificationCenter.defaultUserNotificationCenter().deliverNotification(not)
+		Helpers.displayNotificationForFolder(name)
 	}
     
     //MARK: - Table View
@@ -387,57 +327,6 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	
 	func tableView(tableView: NSTableView, didClickTableColumn tableColumn: NSTableColumn) {
 		tableView.deselectAll(self)
-	}
-	
-    /**
-     Make a folder directly on the Desktop, named the current date and time
-     
-     Function to create a new, empty folder on the desktop. The name of
-     the new folder is the current date/time.
-     
-     @return folder - A reference to the folder created
-     @return name - The name of the folder created
-    */
-	func makeFolder() -> (folder: String, name: String) {
-        // Create a directory manager
-		let directory = NSFileManager.defaultManager()
-		
-        // Create string of formatted date/time
-		let dateFormat = NSDateFormatter()
-		dateFormat.dateFormat = "MM-dd-yyyy hh.mm.ss"
-		let name = dateFormat.stringFromDate(NSDate())
-		
-        // The folders path
-		let folder = "\(NSHomeDirectory())/Desktop/\(name)"
-		
-		do {
-            // Create the folder
-			try directory.createDirectoryAtPath(folder, withIntermediateDirectories: true, attributes: nil)
-		} catch {
-            // Failed to create folder. Error
-            print("Failed to create the folder!!")
-            print("Fail at line \(#line) in function \(#function)")
-			return ("", "")
-		}
-		
-        // Return the folder path and name
-		return (folder, name)
-	}
-	
-	func saveSizedImage(image: NSImage, toPath folder: String, forNumber num: Int?, withName name: String?) {
-		var s = "Image"
-		
-		if let str = name {
-			s = str
-		}
-		
-		if let n = num {
-			s = "\(s)\(n)"
-		}
-		
-		writeImage(image, toSize: image.size, toPath: "\(folder)/\(s)@3x")
-		writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)@1x")
-		writeImage(image, toSize: NSSize(width: image.size.width/3.0*2.0, height: image.size.height/3.0*2.0), toPath: "\(folder)/\(s)@2x")
 	}
 	
     /**
