@@ -64,7 +64,7 @@ class Helpers: NSObject {
         }
         
         Helpers.writeImage(image, toSize: image.size, toPath: "\(folder)/\(s)@3x")
-        Helpers.writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)@1x")
+        Helpers.writeImage(image, toSize: NSSize(width: image.size.width/3.0, height: image.size.height/3.0), toPath: "\(folder)/\(s)")
         Helpers.writeImage(image, toSize: NSSize(width: image.size.width/3.0*2.0, height: image.size.height/3.0*2.0), toPath: "\(folder)/\(s)@2x")
     }
     
