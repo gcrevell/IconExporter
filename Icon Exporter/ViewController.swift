@@ -113,6 +113,12 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         
         let imageRep = NSBitmapImageRep(data: data!)
         
+        let source = CGImageSourceCreateWithData(data!, nil)
+        
+        
+        
+//        CGImageDestinationCreateWithData(, kUTTypeGIF, CGImageSourceGetCount(source), nil)
+        
 //        print(data?.hexadecimalString)
 //        print(droppedImage.name())
 //        
