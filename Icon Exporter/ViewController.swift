@@ -58,6 +58,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
     // View did load function
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        imageDropper.registerForDraggedTypes([kUTTypeGIF as String])
 		// Do any additional setup after loading the view.
         
         // Unhighlight the image dropper
@@ -105,9 +106,21 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	@IBAction func imageDropped(sender: AnyObject) {
         // Get dropped image and set image dropper to origional image
 		let droppedImage = imageDropper.image!
+//        imageDropper.da
 		imageDropper.image = DEFAULT_IMAGE
+        
+        let data = droppedImage.TIFFRepresentation
+        
+        let imageRep = NSBitmapImageRep(data: data!)
+        
+//        print(data?.hexadecimalString)
+//        print(droppedImage.name())
+//        
+//        print(imageRep?.valueForProperty("NSImageFrameCount"))
 		
 		print("Dropped image is of size \(droppedImage.size)")
+        
+//        print(droppedImage.source)
 		
         // Get the current selected output format
 		let format = typePickerIndex(rawValue: dropPicker.indexOfSelectedItem)!
@@ -299,12 +312,9 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	
 	func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
 		let cell = (tableView.makeViewWithIdentifier("MyImagesCell", owner: self) as! MyImagesCell)
+        
+        cell.displayedImage.image = images[row]
 		
-		for v in cell.subviews {
-			if let iv = v as? NSImageView {
-				iv.image = images[row]
-			}
-		}
 		cell.imageNumberLabel.stringValue = "Image \(row + 1)"
 		
 		cell.currentView = self
