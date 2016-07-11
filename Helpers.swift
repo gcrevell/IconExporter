@@ -10,6 +10,25 @@ import Cocoa
 
 extension NSData {
     
+    /*
+     This code taken from user Dan from
+     
+     http://stackoverflow.com/questions/26501276/converting-hex-string-to-nsdata-in-swift
+     */
+    public convenience init(hexString: String) {
+        var index = hexString.startIndex
+        var bytes: [UInt8] = []
+        repeat {
+            bytes.append(hexString[index...index.advancedBy(1)].withCString {
+                return UInt8(strtoul($0, nil, 16))
+                })
+            
+            index = index.advancedBy(2)
+        } while index.distanceTo(hexString.endIndex) != 0
+        
+        self.init(bytes: &bytes, length: bytes.count)
+    }
+    
     /// Return hexadecimal string representation of NSData bytes
     @objc(kdj_hexadecimalString)
     public var hexadecimalString: NSString {

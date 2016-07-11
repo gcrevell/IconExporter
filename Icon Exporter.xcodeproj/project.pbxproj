@@ -15,6 +15,8 @@
 		034065781B55D8CC008558A5 /* Icon_ExporterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034065771B55D8CC008558A5 /* Icon_ExporterUITests.swift */; };
 		036690891B58331A00AFC2CC /* AnimationMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036690881B58331A00AFC2CC /* AnimationMainViewController.swift */; };
 		03828B651B5B48B9001D300A /* MyImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03828B641B5B48B9001D300A /* MyImagesCell.swift */; };
+		7C276C511D3438B200D7387A /* MyImageWell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C276C501D3438B200D7387A /* MyImageWell.swift */; };
+		7C276C531D345BF600D7387A /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C276C521D345BF600D7387A /* Gif.swift */; };
 		7CACF93C1D1DB91F0031AE56 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CACF93B1D1DB91F0031AE56 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,8 @@
 		034065791B55D8CC008558A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		036690881B58331A00AFC2CC /* AnimationMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationMainViewController.swift; sourceTree = "<group>"; };
 		03828B641B5B48B9001D300A /* MyImagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyImagesCell.swift; sourceTree = "<group>"; };
+		7C276C501D3438B200D7387A /* MyImageWell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyImageWell.swift; sourceTree = "<group>"; };
+		7C276C521D345BF600D7387A /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		7CACF93B1D1DB91F0031AE56 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = ../Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +110,8 @@
 				0340655C1B55D8CB008558A5 /* ViewController.swift */,
 				0340655E1B55D8CB008558A5 /* Assets.xcassets */,
 				034065601B55D8CC008558A5 /* Main.storyboard */,
+				7C276C501D3438B200D7387A /* MyImageWell.swift */,
+				7C276C521D345BF600D7387A /* Gif.swift */,
 				03828B641B5B48B9001D300A /* MyImagesCell.swift */,
 				036690881B58331A00AFC2CC /* AnimationMainViewController.swift */,
 				034065631B55D8CC008558A5 /* Info.plist */,
@@ -266,7 +272,9 @@
 			files = (
 				0340655D1B55D8CB008558A5 /* ViewController.swift in Sources */,
 				03828B651B5B48B9001D300A /* MyImagesCell.swift in Sources */,
+				7C276C531D345BF600D7387A /* Gif.swift in Sources */,
 				036690891B58331A00AFC2CC /* AnimationMainViewController.swift in Sources */,
+				7C276C511D3438B200D7387A /* MyImageWell.swift in Sources */,
 				0340655B1B55D8CB008558A5 /* AppDelegate.swift in Sources */,
 				7CACF93C1D1DB91F0031AE56 /* Helpers.swift in Sources */,
 			);

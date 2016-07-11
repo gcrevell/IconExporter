@@ -321,6 +321,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         
         cell.displayedImage.image = images[row]
 		
+		cell.displayedImage.image = images[row]
+        
 		cell.imageNumberLabel.stringValue = "Image \(row + 1)"
 		
 		cell.currentView = self

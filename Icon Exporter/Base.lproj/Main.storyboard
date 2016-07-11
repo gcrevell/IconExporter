@@ -676,7 +676,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="311"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ac1-3m-4ie">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ac1-3m-4ie" customClass="MyImageWell" customModule="Icon_Exporter" customModuleProvider="target">
                                 <rect key="frame" x="17" y="17" width="446" height="236"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="440" id="AsT-iq-fuv"/>
