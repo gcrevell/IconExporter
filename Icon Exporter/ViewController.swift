@@ -300,11 +300,8 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 	func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
 		let cell = (tableView.makeViewWithIdentifier("MyImagesCell", owner: self) as! MyImagesCell)
 		
-		for v in cell.subviews {
-			if let iv = v as? NSImageView {
-				iv.image = images[row]
-			}
-		}
+		cell.displayedImage.image = images[row]
+        
 		cell.imageNumberLabel.stringValue = "Image \(row + 1)"
 		
 		cell.currentView = self
