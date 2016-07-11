@@ -135,7 +135,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		if format.indexIsIcon()  {
             // ...and not square...
 			if droppedImage.size.width != droppedImage.size.height {
-                // Tell the user
+                // ...tell the user...
 				let alert = NSAlert()
 				
 				alert.messageText = "Whoa there."
@@ -147,7 +147,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 				
 				alert.runModal()
 				
-                // Cancel
+                // ...and cancel
 				return
 			}
 		}
@@ -324,6 +324,14 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		cell.imageNumberLabel.stringValue = "Image \(row + 1)"
 		
 		cell.currentView = self
+        
+        if cells.count > row && cells[row] == cell {
+            // Cells array contains current cell in the correct place
+        } else if cells.count > row {
+            cells[row] = cell
+        } else {
+            cells.insert(cell, atIndex: row)
+        }
 		
 		if cells.contains(cell) {
 		} else {
@@ -362,11 +370,13 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
         // Loop through the list of cells and find the index of the given
         // cell.
 		for i in 0..<cells.count {
-			if cells[i] == cell {
+			if cells[i] === cell {
 				index = i
 				break
 			}
 		}
+        
+        print(index)
 		
         // Remove the image and cell
 		images.removeAtIndex(index)
