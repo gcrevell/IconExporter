@@ -116,7 +116,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		if format.indexIsIcon()  {
             // ...and not square...
 			if droppedImage.size.width != droppedImage.size.height {
-                // Tell the user
+                // ...tell the user...
 				let alert = NSAlert()
 				
 				alert.messageText = "Whoa there."
@@ -128,7 +128,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 				
 				alert.runModal()
 				
-                // Cancel
+                // ...and cancel
 				return
 			}
 		}
