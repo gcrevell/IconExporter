@@ -19,11 +19,12 @@ enum typePickerIndex:Int {
 	case ipad
 	case universal
 	case mac
+    case watch
 	case asset
 	case animation
 	
 	func indexIsIcon() -> Bool {
-		if self.rawValue <= 3 {
+		if self.rawValue <= 4 {
 			return true
 		}
 		
@@ -65,7 +66,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		
         // Reset the drop down menu
 		dropPicker.removeAllItems()
-		dropPicker.addItemsWithTitles(["iPhone App Icons", "iPad App Icons", "Universal iOS App Icons", "Mac App Icons", "Image Assets (1, 2, 3x)", "Animations"])
+		dropPicker.addItemsWithTitles(["iPhone App Icons", "iPad App Icons", "Universal iOS App Icons", "Mac App Icons", "Apple Watch Icons", "Image Assets (1, 2, 3x)", "Animations"])
 		
         // Setup the current view
 		myView.wantsLayer = true
@@ -124,7 +125,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 				alert.addButtonWithTitle("Hail Voltage")
 				alert.addButtonWithTitle("I'll do better")
 				
-				alert.alertStyle = NSAlertStyle.CriticalAlertStyle
+				alert.alertStyle = .Critical
 				
 				alert.runModal()
 				
@@ -161,7 +162,7 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		if format == .iphone {
 			// iPhone Icons
             Helpers.writeSquareImage(droppedImage,
-                                          toSizes: [58, 87, 80, 120, 180],
+                                          toSizes: [40, 58, 80, 87, 80, 120, 180],
                                           inFolder: folder)
 		} else if format == .asset {
 			// Image assets (1,2,3x)
@@ -177,18 +178,28 @@ class ViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSour
 		} else if format == .ipad {
 			// iPad icons
             Helpers.writeSquareImage(droppedImage,
-                                          toSizes: [29, 58, 40, 80, 76, 152, 167],
+                                          toSizes: [20, 29, 58, 40, 80, 76, 152, 167],
                                           inFolder: folder)
 		} else if format == .universal {
 			Helpers.writeSquareImage(droppedImage,
                                           // Universal Icons
-                                          toSizes: [58, 80,
-                                            // iPhone only icons sizes
-                                            87, 120, 180,
-                                            // iPad only icon sizes
-                                            29, 40, 76, 152, 167],
+                                          toSizes: [20, 29, 40, 50,
+                                            57, 58, 60, 72, 76, 80,
+                                            87, 100, 114, 120, 144,
+                                            152, 167, 180],
                                           inFolder: folder)
-		}
+        } else if format == .watch {
+            Helpers.writeSquareImage(droppedImage,
+                                     // Apple watch notification center
+                                     toSizes: [48, 55,
+                                        // Apple watch settings app
+                                        58, 87,
+                                        // Apple watch home screen
+                                        80,
+                                        // Short look
+                                        172, 196],
+                                     inFolder: folder)
+        }
 		
         // Create and display a notification about the exort being completed
 		let not = NSUserNotification()
